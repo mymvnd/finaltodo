@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="match_parent"
+    android:padding="5dp"
+    tools:context=".Action_add">
+
+    <EditText
+        android:id="@+id/edtNoteTitle2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Title"/>
+
+    <EditText
+        android:id="@+id/edtDate2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Date"
+        android:onClick="choiceDate"
+        android:inputType="none" />
+    <EditText
+        android:id="@+id/edtTime2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:editable="false"
+        android:hint="Time"
+        android:onClick="choiceTime"
+        android:inputType="none"
+        tools:ignore="Deprecated" />
+
+    <EditText
+        android:id="@+id/edtStatus2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Status"
+        android:inputType="none"
+        android:selectAllOnFocus="false" />
+
+    <EditText
+        android:id="@+id/edtContent2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Write your note here"
+        android:inputType="none" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:weightSum="8"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/bntEdit2"
+            android:layout_width="0dp"
+            android:layout_weight="2"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/teal_200"
+            android:text="Edit" />
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_weight="4"
+            android:layout_height="10dp"/>
+
+        <Button
+            android:id="@+id/bntCancel2"
+            android:layout_width="0dp"
+            android:layout_weight="2"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/teal_200"
+            android:text="Cancel"/>
+
+    </LinearLayout>
+
+</LinearLayout>

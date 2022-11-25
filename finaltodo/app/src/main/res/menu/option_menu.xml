@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/menu_item_add"
+        android:title="Add" />
+    <item
+        android:id="@+id/menu_item_remove_all"
+        android:title="Remove all" />
+    <item
+        android:id="@+id/menu_item_about"
+        android:icon="@drawable/ic_favourite"
+        android:title="About"
+        app:showAsAction="always" />
+</menu>
