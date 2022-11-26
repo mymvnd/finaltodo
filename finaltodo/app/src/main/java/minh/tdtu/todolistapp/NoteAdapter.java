@@ -17,7 +17,13 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.sql.Time;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
@@ -28,6 +34,19 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
     private Context context;
     Database database;
     private int colorInt;
+
+    Calendar calendar = Calendar.getInstance();
+    int hour24hrs = calendar.get(Calendar.HOUR_OF_DAY);
+    int hour12hrs = calendar.get(Calendar.HOUR);
+    int minutes = calendar.get(Calendar.MINUTE);
+    int day = calendar.get(Calendar.DAY_OF_MONTH);
+    int month = calendar.get(Calendar.MONTH);;
+    int year = calendar.get(Calendar.YEAR);;;
+
+    String date = day+"-"+month+"-"+year ;
+    String timeTonotify = hour24hrs + "" + minutes;
+
+
 
     private static final String TABLE_NOTE = "NOTES";
     private static final String COLUMN_STATUS = "NOTE_STATUS";
@@ -81,36 +100,27 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
 
         holder.title.setText(note.getTitle());
         holder.date.setText(note.getDate());
-        //holder.time.setText(note.getTime());
         holder.status.setText(note.getStatus());
-        ///holder.content.setText(note.getContent());
-
-        //holder.itemView.setBackgroundColor(holder.NoteLinearLayout.getResources().getColor(getRandomColor(),null));
 
         if(note.getStatus().equals("Late")){
             holder.itemView.setBackgroundResource(R.drawable.rounded_rectangle_late);
-
-            //holder.itemView.setBackgroundColor(holder.NoteLinearLayout.getResources().getColor(R.color.LateNote,null));
         }
+
         if(note.getStatus().equals("Wait")){
             holder.itemView.setBackgroundResource(R.drawable.rounded_rectangle_wait);
-
-            //holder.itemView.setBackgroundColor(holder.NoteLinearLayout.getResources().getColor(R.color.WaitingNote,null));
+            updateNoteStatus(note);
         }
+
         if(note.getStatus().equals("Done")){
-            //holder.itemView.setBackgroundColor(holder.NoteLinearLayout.getResources().getColor(R.color.teal_200,null));
             holder.itemView.setBackgroundResource(R.drawable.rounded_rectangle);
 
         }
-
-
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 int colorBGr = getRandomColor();
                 Database db = new Database(context);
-                //holder.itemView.setBackgroundColor(holder.NoteLinearLayout.getResources().getColor(colorBGr,null));
                 holder.itemView.setBackgroundResource(colorBGr);
                 if(colorBGr == R.drawable.rounded_rectangle_late){
                     note.setStatus("Late");
@@ -123,7 +133,6 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
                 }
                 db.updateNote(note);
                 notifyDataSetChanged();
-                //db.QueryData(" UPDATE "+ TABLE_NOTE +" SET  "+ COLUMN_STATUS + " = " + note.getStatus()+ " WHERE ID = " + (note.getId()+ "")+";" );
 
             }
         });
@@ -138,6 +147,30 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
         });
 
     }
+
+    private void updateNoteStatus(Note note) {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+        Calendar calendar1 = Calendar.getInstance();
+        SimpleDateFormat formatter1 = new SimpleDateFormat("dd/M/yyyy h:mm");
+        String currentDate = formatter1.format(calendar1.getTime());
+        Date strDate = null;
+        Date strDate2 = null;
+        try {
+            strDate = sdf.parse(note.getDate()+" "+note.getTime());
+            strDate2 = sdf.parse(date+" "+timeTonotify);
+
+            if (currentDate.compareTo(note.getDate()+" "+note.getTime())>=0) {
+                //holder.itemView.setBackgroundResource(R.drawable.rounded_rectangle_late);
+                note.setStatus("Late");
+                Database db = new Database(context);
+                db.updateNote(note);
+
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+    }
+
     public int getRandomColor(){
         List<Integer> color = new ArrayList<>();
         color.add(R.drawable.rounded_rectangle_late);

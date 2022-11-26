@@ -259,21 +259,5 @@ public class MainActivity extends AppCompatActivity{
         this.noteList.addAll(list);
     }
 
-    private void sendOnChannel1()  {
-        String title = this.note.getTitle();
-        String message = "It's time to prepare every thing";
-
-        Notification notification = new NotificationCompat.Builder(MainActivity.this, NotificationApp.CHANNEL_1_ID)
-                .setSmallIcon(R.drawable.ic_notify)
-                .setContentTitle(title)
-                .setContentText(message)
-                .setPriority(NotificationCompat.PRIORITY_HIGH)
-                .setCategory(NotificationCompat.CATEGORY_MESSAGE)
-                .build();
-
-        int notificationId = 1;
-        this.notificationManagerCompat.notify(notificationId, notification);
-    }
-
 
 }

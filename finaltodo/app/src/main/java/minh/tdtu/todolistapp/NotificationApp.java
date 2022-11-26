@@ -1,36 +1,29 @@
 package minh.tdtu.todolistapp;
 
 
+import static android.content.ContentValues.TAG;
+
 import android.app.Application;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.os.Build;
+import android.os.Bundle;
+import android.util.Log;
+import android.widget.TextView;
 
-public class NotificationApp extends Application  {
+import androidx.appcompat.app.AppCompatActivity;
 
-    public static final  String CHANNEL_1_ID = "channel1";
+public class NotificationApp extends AppCompatActivity {
+    TextView textView;
 
     @Override
-    public void onCreate() {
-        super.onCreate();
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_notification_message);
+        Log.d(TAG, "onCreate: notification chay thoi gian roi ne");
+        textView = findViewById(R.id.tv_message);
+        Bundle bundle = getIntent().getExtras();
+        textView.setText(bundle.getString("message"));
 
-        this.createNotificationChannels();
-    }
-
-    private void createNotificationChannels()  {
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            NotificationChannel channel1 = new NotificationChannel(
-                    CHANNEL_1_ID,
-                    "Channel 1",
-                    NotificationManager.IMPORTANCE_HIGH
-            );
-            channel1.setDescription("This is channel 1");
-
-
-
-
-            NotificationManager manager = this.getSystemService(NotificationManager.class);
-            manager.createNotificationChannel(channel1);
-        }
     }
 }
