@@ -23,10 +23,20 @@ public class Alarm_Broadcast extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         Bundle bundle = intent.getExtras();
         String text = bundle.getString("event");
-        String date = bundle.getString("date") + " " + bundle.getString("time");
+        String content = bundle.getString("content");
 
+        String date = bundle.getString("date") + " " + bundle.getString("time");
+        String date2 = bundle.getString("date") + "\n" + bundle.getString("time");
+        //String date2 = bundle.getString("date");
+        //String time = bundle.getString("time");
         Intent intent1 = new Intent(context, NotificationApp.class);
         intent1.putExtra("message", text);
+        intent1.putExtra("content", content);
+        intent1.putExtra("date", date2);
+        //intent1.putExtra("time", time);
+
+
+
         Log.d(TAG, "onReceive: alarm chay roi ne");
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 1, intent1, PendingIntent.FLAG_ONE_SHOT);
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);

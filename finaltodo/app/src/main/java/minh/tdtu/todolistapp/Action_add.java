@@ -119,7 +119,8 @@ public class Action_add extends AppCompatActivity {
         String time = this.edtTime.getText().toString().trim();
         String status = this.edtStatus.getText().toString();
         String content = this.edtContent.getText().toString();
-        setAlarm(title,date,time);
+
+        setAlarm(title,date,time,content);
         if(title.equals("") || content.equals("")) {
             Toast.makeText(getApplicationContext(),
                     "Please enter title & content", Toast.LENGTH_LONG).show();
@@ -239,12 +240,13 @@ public class Action_add extends AppCompatActivity {
         // Show
         timePickerDialog.show();
     }
-    private void setAlarm(String title, String date, String time) {
+    private void setAlarm(String title, String date, String time,String content) {
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         Intent intent2 =new Intent(Action_add.this,Alarm_Broadcast.class);
         intent2.putExtra("event", title);
         intent2.putExtra("time", time);
         intent2.putExtra("date", date);
+        intent2.putExtra("content", content);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(Action_add.this, 0, intent2, PendingIntent.FLAG_ONE_SHOT);
         String dateandtime = date + " " + timeTonotify2;
         DateFormat formatter = new SimpleDateFormat("d-M-yyyy hh:mm");

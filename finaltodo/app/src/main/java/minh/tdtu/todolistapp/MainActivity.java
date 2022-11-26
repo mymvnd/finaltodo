@@ -148,10 +148,6 @@ public class MainActivity extends AppCompatActivity{
             }
         });
 
-        int currentDayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
-        int currentMonth = calendar.get(Calendar.MONTH);
-        int currentdYear = calendar.get(Calendar.YEAR);
-
 
     }
 

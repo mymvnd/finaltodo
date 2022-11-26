@@ -77,7 +77,7 @@ public class Activity_Edit extends AppCompatActivity {
         String title = edtTitle2.getText().toString();
         String date = edtDate2.getText().toString();
         String time = edtTime2.getText().toString();
-
+        String content = edtContent2.getText().toString();
         sp2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -95,7 +95,7 @@ public class Activity_Edit extends AppCompatActivity {
         bntEdit2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                setAlarm(title,date,time);
+                setAlarm(title,date,time,content);
                 buttonSaveClicked(note);
                 finish();
             }
@@ -217,12 +217,13 @@ public class Activity_Edit extends AppCompatActivity {
         this.onBackPressed();
     }
 
-    private void setAlarm(String title, String date, String time) {
+    private void setAlarm(String title, String date, String time,String content) {
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         Intent intent2 =new Intent(Activity_Edit.this,Alarm_Broadcast.class);
         intent2.putExtra("event", title);
         intent2.putExtra("time", time);
         intent2.putExtra("date", date);
+        intent2.putExtra("content", content);
 
         PendingIntent pendingIntent = PendingIntent.getBroadcast(Activity_Edit.this, 0, intent2, PendingIntent.FLAG_ONE_SHOT);
         String dateandtime = date + " " + timeTonotify;
